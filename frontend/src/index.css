@@ -1,0 +1,256 @@
+@import "tailwindcss";
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #171718;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    min-height: 100vh;
+}
+h1{
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 20px; 
+    font-size: 3rem;
+    color: #ffffff;
+}
+
+.container {
+    background-color: rgb(15, 15, 15);
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #ffffff;
+}
+
+p {
+    color: #ffffff;
+    margin-bottom: 1rem;
+}
+
+.login-form input {
+    width: 90%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #2b2b2b;
+    border-radius: 0.5rem;
+}
+
+.login-form p{
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-decoration: none;
+    text-align: left;
+    margin-bottom: 1rem;
+    margin-top: -3px;
+    
+}
+
+/*.forgot-password {
+    text-align: right;
+    margin-bottom: 1rem;
+}
+
+.forgot-password a {
+    font-size: 0.9rem;
+    color: #ffffff;
+    text-decoration: none;
+} */
+
+.login-btn {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+.login-btn:hover {
+    background-color: #2b2b2b;
+}
+
+.signup-text {
+    margin-top: 1.5rem;
+}
+
+.signup-text a {
+    color: #ffffff;
+    text-decoration: none;
+}
+.signup-btn{
+    width: 50%;
+    padding: 0.75rem;
+    background-color: #2b2b2b;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-bottom: 1rem;
+}
+
+body { 
+    /*background: url('bg.jpeg') no-repeat center center fixed; */
+    background-color: #171718;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+
+
+#todo-container {
+    background: rgb(15, 15, 15, 0.5);
+    width: 800px;
+    margin: 0 auto;
+    border: 2px solid #39393a;
+    padding: 20px;
+    color: white;
+    border-radius: 15px;
+}
+
+#header {
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px; 
+}
+
+#todo-form {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+#input-box, #date-box {
+    width: 150px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#input-button {
+    padding: 8px 12px;
+    border: none;
+    background-color: transparent; 
+    cursor: pointer;
+}
+
+#input-button:hover {
+    
+    color: black;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+    text-align: left;
+}
+
+li {
+    border: 1px solid white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task-content {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.edit-btn, .delete-btn {
+    float: right;
+    color: rgb(240, 234, 235);
+    cursor: pointer;
+    margin: 3px 5px;
+    border: none;
+    padding: 3px 5px;
+    background: none;
+    font-size: 18px;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    color: #e9eaee;
+}
+
+
+.completed {
+    text-decoration: line-through;
+    color: gray;
+    border: 1px solid gray;
+}
+#profile-section {
+    position: relative;
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+#profile {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    padding: 5px 10px;
+    border: 1px solid white;
+    border-radius: 20px;
+}
+
+#profile:hover {
+    background-color: #2b2b2b;
+}
+
+#profile-icon {
+    font-size: 30px;
+    color: white;
+}
+
+#profile-menu {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background-color: rgba(15, 15, 15, 0.9);
+    border: 1px solid #39393a;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#profile-menu button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
