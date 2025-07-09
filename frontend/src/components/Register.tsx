@@ -11,41 +11,49 @@ export default function Register(){
         e.preventDefault();
         
         try{
-            if (password === passwordCheck){
-                const response = await fetch("http://localhost:8000/register",{
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({username, password}),
-                });
-                if (response.ok){
-                    const data = await response.json();
-                    localStorage.setItem("token", data.access_token);
-                    localStorage.setItem("username", username);
-                    navigate("/dashboard")
-                }
-                else if(response.status == 409){
-                    alert("Username already exists")
-                }else{
-                    const error = await response.text()
-                    alert(error)
-                }
+            if(username==""){
+                alert("Username should not be empty");
+            }
+            else if(password==""){
+                alert("Password should not be empty");
             }
             else{
-                alert("Passwords don't match")
+                if (password === passwordCheck){
+                    const response = await fetch("http://localhost:8000/register",{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({username, password}),
+                    });
+                    if (response.ok){
+                        const data = await response.json();
+                        localStorage.setItem("token", data.access_token);
+                        localStorage.setItem("username", username);
+                        navigate("/dashboard")
+                    }
+                    else if(response.status == 409){
+                        alert("Username already exists")
+                    }else{
+                        const error = await response.text()
+                        alert(error)
+                    }
+                }
+                else{
+                    alert("Passwords don't match")
+                }
             }
         }catch (error){
             console.log(error)
         }
     };
     return(
-        <div>
+        <div className='login-container'>
             <h1>TODO LIST</h1>
             <div className="container">
                 <h2>Create account</h2>
                 <form
-                className="login-form"
+                className="login-form text-white"
                 action="main.html"
                 method="get"
                 onSubmit={handleSubmit}

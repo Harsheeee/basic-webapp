@@ -11,8 +11,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-var jwtKey = []byte("secret_key") // Replace with your actual secret key
-
+var jwtKey = []byte("secret_key") 
 func generateJWT(username string) (string, error) {
 
 	claims := &jwt.RegisteredClaims{
@@ -44,8 +43,8 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Username already exists", http.StatusConflict)
 		return
 	}
-	//encrypt the password
-	//import bcrypt package and use it to hash the password
+
+	
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
 	if err != nil {
 		http.Error(w, "Error hashing password", http.StatusInternalServerError)

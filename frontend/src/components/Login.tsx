@@ -10,21 +10,29 @@ function Login() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:8000/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
-            if (response.ok) {
-                const data = await response.json();
-                localStorage.setItem('token', data.access_token);
-                localStorage.setItem('username', username);
-                navigate('/dashboard');
-            } else {
-                const text = await response.text()
-                alert(text);
+            if(username==""){
+                alert("Username should not be empty");
+            }
+            else if(password==""){
+                alert("Password should not be empty");
+            }
+            else{
+                const response = await fetch('http://localhost:8000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password }),
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('token', data.access_token);
+                    localStorage.setItem('username', username);
+                    navigate('/dashboard');
+                } else {
+                    const text = await response.text()
+                    alert(text);
+                }
             }
         } catch (error) {
             console.error('Error:', error);
@@ -35,7 +43,7 @@ function Login() {
             <h1>TODO LIST</h1>
             <div className="container">
                 <h2>Login to your account</h2>
-                <form className="login-form" action="main.html" method="get" onSubmit={handleSubmit}>
+                <form className="login-form text-white" action="main.html" method="get" onSubmit={handleSubmit}>
                 <p>Username</p>
                 <input type="text" placeholder="username" onChange={(e) => setUsername(e.target.value)} value={username} />
                 <p>Password</p>

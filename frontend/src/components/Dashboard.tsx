@@ -2,6 +2,9 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import type { Todo } from '../types'
 import axios from 'axios'
+import EditTodo from './EditTodo'
+import {useNavigate } from 'react-router-dom'
+
 
 const Dashboard: React.FC = () =>{
   const [todos, setTodos ]= useState<Todo[]>([]);
@@ -10,13 +13,24 @@ const Dashboard: React.FC = () =>{
   const [description, setDescription] = useState('');
   const [done, setDone] = useState(false);
   const [deadline, setDeadline] = useState('');
+  const [todoUpdated, setIsTodoUpdated]=useState(false);
 
   const username = localStorage.getItem("username") || "";
   const url = `http://localhost:8000/todos?username=${username}`;
+  const navigate = useNavigate()
+
+  useEffect(() => {
+  if (localStorage.getItem("token") == null) {
+    navigate("/");
+  }
+  }, [navigate]);
+
 
   const createTodo = async (todo:{})=>{
     try{
-      axios.post(`http://localhost:8000/create`,todo)
+      await axios.post(`http://localhost:8000/create`,todo)
+      setIsTodoUpdated(!todoUpdated)
+
     }
     catch(error){
       alert("Couldn't create todo")
@@ -25,13 +39,15 @@ const Dashboard: React.FC = () =>{
 
   const editTodo = async (id: Todo['id'], username: Todo['username'], title: Todo['title'], description: Todo['description'],done: Todo['done'], deadline:Todo['deadline'])=>{
     try{
-      axios.put(`http://localhost:8000/update?id=${id}`,{
+      await axios.put(`http://localhost:8000/update?id=${id}`,{
         title: title,
         username: username,
         description: description,
         done: done,
         deadline: deadline
       })
+      setIsTodoUpdated(!todoUpdated)
+
     }
     catch(err){
       alert("Couldn't update todo")
@@ -40,7 +56,9 @@ const Dashboard: React.FC = () =>{
 
   const deleteTodo = async (id: Todo['id'])=>{
     try{
-      axios.delete(`http://localhost:8000/delete?id=${id}`)
+      await axios.delete(`http://localhost:8000/delete?id=${id}`)
+      setIsTodoUpdated(!todoUpdated)
+
     }
     catch(err){
       alert("Couldn't delete todo")
@@ -57,15 +75,24 @@ const Dashboard: React.FC = () =>{
       }
     };
     fetchTodos();
-  },[todos]);
+  },[todoUpdated]);
 
   return(
 <>
   <div className='text-white'>
+    <div className="flex justify-between items-center">
     <h1 className='text-black'>{username}'s Todos</h1>
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-      <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-    </svg>
+    <button 
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            navigate("/");
+          }} 
+          className="px-4 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg focus:outline-none"
+        >
+          Exit
+    </button>
+    </div>
     <div id="todo-form" className="max-w-4xl mx-auto mt-10 p-6 bg-customBlack rounded-xl shadow-md text-white">
       <form id="task-form" className="flex flex-wrap items-center justify-between gap-6"
       onSubmit={(e)=>{
@@ -146,6 +173,7 @@ const Dashboard: React.FC = () =>{
     </div>
   </div>
   <div className='text-white'>
+    {todos && todos.length>0?(
   <ul>
   {todos.map(todo => (
     <li key={todo.id} className="flex justify-between items-center mb-4 p-4 border border-gray-300 rounded-lg shadow-sm">
@@ -165,12 +193,7 @@ const Dashboard: React.FC = () =>{
         >
           {todo.done ? "Mark as Pending" : "Mark as Done"}
         </button>
-        <button 
-          onClick={() => console.log("todo edited")} 
-          className="px-4 py-2 text-white bg-yellow-500 hover:bg-yellow-600 rounded-lg focus:outline-none"
-        >
-          Edit
-        </button>
+        <EditTodo todo={todo} onEdited={()=> setIsTodoUpdated(!todoUpdated)}/>
         <button 
           onClick={() => deleteTodo(todo.id)}
           className="px-4 py-2 text-white bg-red-500 hover:bg-red-600 rounded-lg focus:outline-none"
@@ -181,7 +204,7 @@ const Dashboard: React.FC = () =>{
     </li>
   ))}
 </ul>
-
+    ):(<p>NO TODOS</p>)}
   </div>
 </>
   )
