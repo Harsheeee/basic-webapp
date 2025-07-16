@@ -1,7 +1,7 @@
-# Todo List Application
+# Todo List
 
 A simple Todo List application where users can create account or log in, and add, edit, or delete todos. 
-This application uses MongoDB to store user information and todos.
+It uses MongoDB to store user information and todos.
 
 ## Features
 
